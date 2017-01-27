@@ -1,0 +1,19 @@
+[Unit]
+Description=Starlight secure redis server virtual ip 6379
+
+After=docker.service
+Requires=docker.service
+
+[Service]
+ProtectSystem=true
+Type=simple
+
+ExecStart=/bin/docker run --name starlight-redis --ip 172.17.0.2 starlight-redis 
+
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=sl-redis
+
+[Install]
+WantedBy=multi-user.target
